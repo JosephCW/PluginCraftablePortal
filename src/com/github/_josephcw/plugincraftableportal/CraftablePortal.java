@@ -55,22 +55,20 @@ public class CraftablePortal extends JavaPlugin implements Listener {
 		// A block is being damaged.
 		
 		if (e.getBlock().getType() == Material.ENDER_PORTAL_FRAME) {
-			
-			
-			ItemStack portalBlock = new ItemStack(Material.ENDER_PORTAL_FRAME, 1);
-			portalBlock.setItemMeta(setPortalMeta(portalBlock.getItemMeta()));
-			e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), portalBlock);
-			
-//			for (MetadataValue mv : e.getBlock().getState().getMetadata("eye")) {
-//				Bukkit.broadcastMessage(mv.asString());
-//			}
-			
-			if ((e.getBlock().getData() & 0x4) != 0)
-				e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(Material.EYE_OF_ENDER, 1));
-			
-			
-			e.getBlock().setType(Material.AIR);
-			
+			if (e.getItemInHand().getType() == Material.COBBLESTONE) {
+				// Create the customized item to drop.
+				ItemStack portalBlock = new ItemStack(Material.ENDER_PORTAL_FRAME, 1);
+				portalBlock.setItemMeta(setPortalMeta(portalBlock.getItemMeta()));
+				e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), portalBlock);
+		
+				// Drop an eye of ender if the block already has one in it.
+				// Because mc is dumb.
+				if ((e.getBlock().getData() & 0x4) != 0)
+					e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(Material.EYE_OF_ENDER, 1));
+				
+				
+				e.getBlock().setType(Material.AIR);
+			}
 		}
 		
 		// Sketchy way of removing the portal.
