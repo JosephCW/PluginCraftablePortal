@@ -1,0 +1,5 @@
+name: CraftablePortal
+version: 1.0
+description: Allows you to craft endportal frames.
+author: JosephCW
+main: com.github._josephcw.plugincraftableportal.CraftablePortal
